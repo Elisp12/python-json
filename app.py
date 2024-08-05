@@ -1,4 +1,5 @@
 import requests
+import json
 
 url = 'https://guilhermeonrails.github.io/api-restaurantes/restaurantes.json'
 
@@ -19,9 +20,14 @@ if response.status_code == 200: # se o aceesso for valido status é 200
             "price": item['price'],
             "description": item['description']
         })
+
+        for nome_do_restaurante, dados in dados_restaurantes.items():
+            nome_do_arquivo = f'{nome_do_restaurante}.jason'
+            with open(nome_do_arquivo, 'wgit') as arquivo_restaurante:
+                json.dump(dados, arquivo_restaurante, indent=4)
       
 else: # se status não for válido 
     print(f'o erro foi {response.status_code}') #mostra status
     
 
-print(dados_restaurantes['McDonald’s']) # mostra infor filtrada pela chave dicionário
+#print(dados_restaurantes['McDonald’s']) # mostra infor filtrada pela chave dicionário
